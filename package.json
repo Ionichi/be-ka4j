@@ -1,14 +1,8 @@
 {
-	"name": "boilerplate-express-js",
-	"description": "Express Boilerplate using Typescript",
+	"name": "be-ka4j",
+	"description": "Web API for KA4J Apps",
 	"version": "1.0.0",
 	"main": "src/index.ts",
-	"keywords": [
-		"express",
-		"boilerplate",
-		"template",
-		"typescript"
-	],
 	"author": {
 		"name": "Ionichi",
 		"email": "feryandi2303@gmail.com"

@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { UserDTO } from "./dto";
 
 const prisma = new PrismaClient();
 
 class UserDao {
 	static login = async (username: string) => {
 		try {
-			const user = await prisma.user.findUnique({
+			const user: UserDTO | null = await prisma.user.findUnique({
 				where: {
 					username,
 					isActive: true,
@@ -27,12 +28,29 @@ class UserDao {
 		kelasId?: string
 	) => {
 		try {
-			const user = await prisma.user.create({
+			const user: UserDTO = await prisma.user.create({
 				data: {
 					username,
 					password,
 					tglLahir,
 					kelasId: kelasId || undefined,
+				},
+			});
+
+			return user;
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
+
+	static getUserByUsername = async (username: string) => {
+		try {
+			const user: UserDTO | null = await prisma.user.findUnique({
+				where: {
+					username,
+					isActive: true,
 				},
 			});
 

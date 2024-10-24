@@ -11,7 +11,7 @@ const isAuthenticated = (
 		const { token } = req.cookies;
 
 		const authenticated = jwt.verify(token, secret) as JwtPayload;
-		req.body.username = authenticated.username;
+		req.body.currentUsername = authenticated.username;
 
 		next();
 	} catch (error) {

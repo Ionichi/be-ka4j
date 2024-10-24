@@ -1,18 +1,34 @@
 import { LogType } from "@prisma/client";
+import UserDao from "domain/user/dao";
+import LogDao from "./dao";
 
 class LogService {
-	static logError = (
+	static createLog = async (
 		action: string,
 		module: string,
 		notes: string,
 		type: LogType,
-		userId: string
+		username: string
 	) => {
 		try {
-			console.log(action, module, notes, type, userId);
+			const tgl = new Date();
+			const user = await UserDao.getUserByUsername(username);
+			if (!user) {
+				throw new Error("User not found");
+			}
+
+			const log = await LogDao.createLog(
+				action,
+				module,
+				notes,
+				type,
+				tgl,
+				user.id
+			);
+
+			console.log(log);
 		} catch (error) {
-			// this.logError("store", "LogError", error, "ERROR", userId);
-			console.log(error);
+			console.log("Error create log: ", error);
 		}
 	};
 }

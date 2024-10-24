@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import Authentication from "utils/auth";
+import { LogType } from "@prisma/client";
+import LogService from "domain/log/service";
 import UserService from "./service";
 
 const login = async (req: Request, res: Response) => {
@@ -34,6 +36,14 @@ const register = async (req: Request, res: Response) => {
 			kelasId
 		);
 
+		await LogService.createLog(
+			"save",
+			"create user",
+			"-",
+			LogType.ERROR,
+			req.body.currentUsername
+		);
+
 		res.status(201).json({
 			success: true,
 			message: result.message,
@@ -41,6 +51,13 @@ const register = async (req: Request, res: Response) => {
 		});
 	} catch (error) {
 		if (error instanceof Error) {
+			await LogService.createLog(
+				"save",
+				"create user",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
 			res.status(500).json({
 				success: false,
 				message: error.message,

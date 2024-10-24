@@ -39,7 +39,7 @@ const register = async (req: Request, res: Response) => {
 		await LogService.createLog(
 			"save",
 			"create user",
-			"-",
+			`create user ${username}`,
 			LogType.SUCCESS,
 			req.body.currentUsername
 		);

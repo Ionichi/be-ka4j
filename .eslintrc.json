@@ -20,7 +20,7 @@
 	"ignorePatterns": ["src/**/*.spec.ts", "src/**/*.test.ts"],
 	"rules": {
 		"arrow-spacing": ["warn", { "before": true, "after": true }],
-		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+		"brace-style": ["error"],
 		"comma-spacing": "error",
 		"comma-style": "error",
 		"curly": ["error", "multi-line", "consistent"],
@@ -62,6 +62,7 @@
 		"spaced-comment": "error",
 		"yoda": "error",
 		"@typescript-eslint/lines-between-class-members": "off",
-		"@typescript-eslint/no-throw-literal": "off"
+		"@typescript-eslint/no-throw-literal": "off",
+		"no-useless-catch": "off"
 	}
 }

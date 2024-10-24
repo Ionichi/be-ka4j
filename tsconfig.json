@@ -1,11 +1,21 @@
 {
-	"exclude": ["node_modules/", "dist/", "src/**/*.test.ts", "src/**/*.spec.ts", ".git/", ".github/", ".vscode/"],
+	"exclude": [
+		"node_modules/",
+		"dist/",
+		"src/**/*.test.ts",
+		"src/**/*.spec.ts",
+		"test/**/*.test.ts",
+		"test/**/*.spec.ts",
+		".git/",
+		".github/",
+		".vscode/"
+	],
 	"include": ["src/**/*"],
 	"compilerOptions": {
 		"outDir": "dist/",
 		"baseUrl": "./src",
 		"rootDir": "./src",
-		"module": "ESNext",
+		"module": "CommonJS",
 		"moduleResolution": "Node",
 		"target": "ES6",
 		"lib": ["ESNext", "DOM"],

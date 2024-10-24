@@ -3,7 +3,7 @@ CREATE TYPE "LogType" AS ENUM ('SUCCESS', 'ERROR');
 
 -- CreateTable
 CREATE TABLE "kelas" (
-    "id" UUID NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "nama" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE "kelas" (
 
 -- CreateTable
 CREATE TABLE "users" (
-    "id" UUID NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "isAdmin" BOOLEAN NOT NULL DEFAULT false,
@@ -28,7 +28,7 @@ CREATE TABLE "users" (
 
 -- CreateTable
 CREATE TABLE "absensi_mentor" (
-    "id" UUID NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "userId" UUID NOT NULL,
     "isPresent" BOOLEAN NOT NULL DEFAULT false,
     "tgl" DATE NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE "absensi_mentor" (
 
 -- CreateTable
 CREATE TABLE "children" (
-    "id" UUID NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "nama" TEXT NOT NULL,
     "tglLahir" DATE,
     "namaParent" TEXT,
@@ -56,7 +56,7 @@ CREATE TABLE "children" (
 
 -- CreateTable
 CREATE TABLE "absensi_children" (
-    "id" UUID NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "childrenId" UUID NOT NULL,
     "kelasId" UUID NOT NULL,
     "tgl" DATE NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE "absensi_children" (
 
 -- CreateTable
 CREATE TABLE "logs" (
-    "id" UUID NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "action" TEXT NOT NULL,
     "module" TEXT NOT NULL,
     "notes" TEXT NOT NULL,

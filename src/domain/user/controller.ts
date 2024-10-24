@@ -40,7 +40,7 @@ const register = async (req: Request, res: Response) => {
 			"save",
 			"create user",
 			"-",
-			LogType.ERROR,
+			LogType.SUCCESS,
 			req.body.currentUsername
 		);
 

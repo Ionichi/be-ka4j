@@ -55,6 +55,17 @@ class UserService {
 			throw new Error("Error creating user");
 		}
 	};
+
+	static getUserByUsername = async (username: string) => {
+		try {
+			const result = await UserDao.getUserByUsername(username);
+
+			return result;
+		} catch (error) {
+			console.error("Error getting user by username:", error);
+			throw error;
+		}
+	};
 }
 
 export default UserService;

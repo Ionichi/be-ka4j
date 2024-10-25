@@ -1,5 +1,5 @@
 import { LogType } from "@prisma/client";
-import UserDao from "domain/user/dao";
+import UserService from "domain/user/service";
 import LogDao from "./dao";
 
 class LogService {
@@ -12,7 +12,7 @@ class LogService {
 	) => {
 		try {
 			const tgl = new Date();
-			const user = await UserDao.getUserByUsername(username);
+			const user = await UserService.getUserByUsername(username);
 			if (!user) {
 				throw new Error("User not found");
 			}

@@ -12,6 +12,17 @@ class KelasService {
 		}
 	};
 
+	static getKelasById = async (id: string) => {
+		try {
+			const kelas = await KelasDao.getKelasById(id);
+
+			return kelas;
+		} catch (error) {
+			console.log("Error get kelas by id: ", error);
+			throw error;
+		}
+	};
+
 	static createKelas = async (nama: string) => {
 		try {
 			const kelas = await KelasDao.createKelas(nama);

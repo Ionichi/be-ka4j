@@ -16,6 +16,22 @@ class KelasDao {
 		}
 	};
 
+	static getKelasById = async (id: string) => {
+		try {
+			const kelas: KelasDTO | null = await prisma.kelas.findUnique({
+				where: {
+					id,
+				},
+			});
+
+			return kelas;
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
+
 	static createKelas = async (nama: string) => {
 		try {
 			const kelas: KelasDTO = await prisma.kelas.create({

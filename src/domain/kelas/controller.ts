@@ -31,6 +31,35 @@ const getKelas = async (req: Request, res: Response) => {
 	}
 };
 
+const getKelasById = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const result = await KelasService.getKelasById(id);
+
+		res.status(200).json({
+			success: true,
+			message: "Data retrieved successfully.",
+			data: {
+				kelas: result,
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"edit",
+				"edit kelas",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
 const createKelas = async (req: Request, res: Response) => {
 	try {
 		const { nama } = req.body;
@@ -68,4 +97,4 @@ const createKelas = async (req: Request, res: Response) => {
 	}
 };
 
-export { getKelas, createKelas };
+export { getKelas, getKelasById, createKelas };

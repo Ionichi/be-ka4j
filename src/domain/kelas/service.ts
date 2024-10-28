@@ -5,7 +5,10 @@ class KelasService {
 		try {
 			const kelas = await KelasDao.getKelas();
 
-			return kelas;
+			return {
+				message: "Kelas retrieved successfully.",
+				kelas,
+			};
 		} catch (error) {
 			console.error("Error get kelas: ", error);
 			throw error;
@@ -16,7 +19,10 @@ class KelasService {
 		try {
 			const kelas = await KelasDao.getKelasById(id);
 
-			return kelas;
+			return {
+				message: "Kelas retrieved successfully.",
+				kelas,
+			};
 		} catch (error) {
 			console.log("Error get kelas by id: ", error);
 			throw error;

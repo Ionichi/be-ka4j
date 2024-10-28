@@ -9,9 +9,9 @@ const getKelas = async (req: Request, res: Response) => {
 
 		res.status(200).json({
 			success: true,
-			message: "Data retrieved successfully.",
+			message: result.message,
 			data: {
-				kelas: result,
+				kelas: result.kelas,
 			},
 		});
 	} catch (error) {
@@ -38,9 +38,9 @@ const getKelasById = async (req: Request, res: Response) => {
 
 		res.status(200).json({
 			success: true,
-			message: "Data retrieved successfully.",
+			message: result.message,
 			data: {
-				kelas: result,
+				kelas: result.kelas,
 			},
 		});
 	} catch (error) {

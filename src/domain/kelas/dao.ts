@@ -47,6 +47,25 @@ class KelasDao {
 			await prisma.$disconnect();
 		}
 	};
+
+	static updateKelas = async (id: string, nama: string) => {
+		try {
+			const kelas: KelasDTO = await prisma.kelas.update({
+				where: {
+					id,
+				},
+				data: {
+					nama,
+				},
+			});
+
+			return kelas;
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
 }
 
 export default KelasDao;

@@ -97,4 +97,42 @@ const createKelas = async (req: Request, res: Response) => {
 	}
 };
 
-export { getKelas, getKelasById, createKelas };
+const updateKelas = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const { nama } = req.body;
+		const result = await KelasService.updateKelas(id, nama);
+
+		await LogService.createLog(
+			"save",
+			"update kelas",
+			`update kelas ${nama}`,
+			LogType.SUCCESS,
+			req.body.currentUsername
+		);
+
+		res.status(201).json({
+			success: true,
+			message: result.message,
+			data: {
+				kelas: result.kelas,
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"update",
+				"update kelas",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
+export { getKelas, getKelasById, createKelas, updateKelas };

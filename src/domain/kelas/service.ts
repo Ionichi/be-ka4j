@@ -36,6 +36,20 @@ class KelasService {
 			throw error;
 		}
 	};
+
+	static updateKelas = async (id: string, nama: string) => {
+		try {
+			const kelas = await KelasDao.updateKelas(id, nama);
+
+			return {
+				message: "Kelas updated successfully!",
+				kelas,
+			};
+		} catch (error) {
+			console.log("Error updating kelas: ", error);
+			throw error;
+		}
+	};
 }
 
 export default KelasService;

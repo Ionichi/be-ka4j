@@ -22,7 +22,7 @@ class UserService {
 				},
 			};
 		} catch (error) {
-			console.error("Error login user:", error);
+			console.error("Error login user: ", error);
 			throw error;
 		}
 	};
@@ -51,8 +51,8 @@ class UserService {
 				},
 			};
 		} catch (error) {
-			console.error("Error creating user:", error);
-			throw new Error("Error creating user");
+			console.error("Error creating user: ", error);
+			throw error;
 		}
 	};
 
@@ -62,7 +62,7 @@ class UserService {
 
 			return result;
 		} catch (error) {
-			console.error("Error getting user by username:", error);
+			console.error("Error getting user by username: ", error);
 			throw error;
 		}
 	};

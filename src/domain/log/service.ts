@@ -28,7 +28,7 @@ class LogService {
 
 			console.log(log);
 		} catch (error) {
-			console.log("Error create log: ", error);
+			console.error("Error create log: ", error);
 		}
 	};
 }

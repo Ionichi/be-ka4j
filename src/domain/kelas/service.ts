@@ -24,7 +24,7 @@ class KelasService {
 				kelas,
 			};
 		} catch (error) {
-			console.log("Error get kelas by id: ", error);
+			console.error("Error get kelas by id: ", error);
 			throw error;
 		}
 	};
@@ -52,7 +52,21 @@ class KelasService {
 				kelas,
 			};
 		} catch (error) {
-			console.log("Error updating kelas: ", error);
+			console.error("Error updating kelas: ", error);
+			throw error;
+		}
+	};
+
+	static deleteKelas = async (id: string) => {
+		try {
+			const kelas = await KelasDao.deleteKelas(id);
+
+			return {
+				message: "Kelas deleted successfully!",
+				kelas,
+			};
+		} catch (error) {
+			console.error("Error deleting kelas: ", error);
 			throw error;
 		}
 	};

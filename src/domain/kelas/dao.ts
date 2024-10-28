@@ -66,6 +66,22 @@ class KelasDao {
 			await prisma.$disconnect();
 		}
 	};
+
+	static deleteKelas = async (id: string) => {
+		try {
+			const kelas = await prisma.kelas.delete({
+				where: {
+					id,
+				},
+			});
+
+			return kelas;
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
 }
 
 export default KelasDao;

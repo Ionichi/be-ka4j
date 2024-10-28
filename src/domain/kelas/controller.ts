@@ -104,14 +104,14 @@ const updateKelas = async (req: Request, res: Response) => {
 		const result = await KelasService.updateKelas(id, nama);
 
 		await LogService.createLog(
-			"save",
+			"update",
 			"update kelas",
 			`update kelas ${nama}`,
 			LogType.SUCCESS,
 			req.body.currentUsername
 		);
 
-		res.status(201).json({
+		res.status(200).json({
 			success: true,
 			message: result.message,
 			data: {
@@ -135,4 +135,41 @@ const updateKelas = async (req: Request, res: Response) => {
 	}
 };
 
-export { getKelas, getKelasById, createKelas, updateKelas };
+const deleteKelas = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const result = await KelasService.deleteKelas(id);
+
+		await LogService.createLog(
+			"delete",
+			"delete kelas",
+			`delete kelas ${result.kelas.nama}`,
+			LogType.SUCCESS,
+			req.body.currentUsername
+		);
+
+		res.status(200).json({
+			success: true,
+			message: result.message,
+			data: {
+				kelas: result.kelas,
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"delete",
+				"delete kelas",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
+export { getKelas, getKelasById, createKelas, updateKelas, deleteKelas };

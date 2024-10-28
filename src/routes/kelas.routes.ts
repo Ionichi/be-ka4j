@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import {
 	createKelas,
+	deleteKelas,
 	getKelas,
 	getKelasById,
 	updateKelas,
@@ -15,5 +16,6 @@ kelasRouter.get("/", isAuthenticated, isAdmin, getKelas);
 kelasRouter.post("/", isAuthenticated, isAdmin, validateKelas, createKelas);
 kelasRouter.get("/:id", isAuthenticated, isAdmin, getKelasById);
 kelasRouter.put("/:id", isAuthenticated, isAdmin, validateKelas, updateKelas);
+kelasRouter.delete("/:id", isAuthenticated, isAdmin, deleteKelas);
 
 export default kelasRouter;

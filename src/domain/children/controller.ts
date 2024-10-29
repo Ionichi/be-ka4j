@@ -114,4 +114,60 @@ const createChildren = async (req: Request, res: Response) => {
 	}
 };
 
-export { getChildren, getChildrenById, createChildren };
+const updateChildren = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const {
+			nama,
+			gender,
+			tglLahir,
+			namaParent,
+			kontak,
+			isJemaat,
+			kelasId,
+		} = req.body;
+
+		const result = await ChildrenService.updateChildren(
+			id,
+			nama,
+			gender,
+			tglLahir,
+			namaParent,
+			kontak,
+			isJemaat,
+			kelasId
+		);
+
+		await LogService.createLog(
+			"update",
+			"update children",
+			`update children ${nama}`,
+			LogType.SUCCESS,
+			req.body.currentUsername
+		);
+
+		res.status(201).json({
+			success: true,
+			message: result.message,
+			data: {
+				children: result.children,
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"update",
+				"update children",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
+export { getChildren, getChildrenById, createChildren, updateChildren };

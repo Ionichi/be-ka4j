@@ -65,6 +65,44 @@ class ChildrenService {
 			throw error;
 		}
 	};
+
+	static updateChildren = async (
+		id: string,
+		nama: string,
+		gender: string,
+		tglLahir: Date,
+		namaParent: string,
+		kontak: string,
+		isJemaat: boolean,
+		kelasId: string
+	) => {
+		try {
+			const formatTglLahir = new Date(tglLahir);
+			const genderType: Gender =
+				gender.toUpperCase() === "P" || gender.toUpperCase() === "GIRL"
+					? Gender.GIRL
+					: Gender.BOY;
+
+			const children = await ChildrenDao.updateChildren(
+				id,
+				nama,
+				genderType,
+				formatTglLahir,
+				namaParent,
+				kontak,
+				isJemaat,
+				kelasId
+			);
+
+			return {
+				message: "Children updated successfully!",
+				children,
+			};
+		} catch (error) {
+			console.error("Error update children: ", error);
+			throw error;
+		}
+	};
 }
 
 export default ChildrenService;

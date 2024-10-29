@@ -6,7 +6,11 @@ const prisma = new PrismaClient();
 class ChildrenDao {
 	static getChildren = async () => {
 		try {
-			const children: ChildrenDTO[] = await prisma.children.findMany();
+			const children: ChildrenDTO[] = await prisma.children.findMany({
+				where: {
+					isActive: true,
+				},
+			});
 
 			return children;
 		} catch (error) {
@@ -44,6 +48,40 @@ class ChildrenDao {
 	) => {
 		try {
 			const children: ChildrenDTO = await prisma.children.create({
+				data: {
+					nama,
+					gender,
+					tglLahir,
+					namaParent,
+					kontak,
+					isJemaat,
+					kelasId,
+				},
+			});
+
+			return children;
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
+
+	static updateChildren = async (
+		id: string,
+		nama: string,
+		gender: Gender,
+		tglLahir: Date,
+		namaParent: string,
+		kontak: string,
+		isJemaat: boolean,
+		kelasId: string
+	) => {
+		try {
+			const children: ChildrenDTO = await prisma.children.update({
+				where: {
+					id,
+				},
 				data: {
 					nama,
 					gender,

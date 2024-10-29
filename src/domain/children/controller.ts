@@ -170,4 +170,47 @@ const updateChildren = async (req: Request, res: Response) => {
 	}
 };
 
-export { getChildren, getChildrenById, createChildren, updateChildren };
+const softDeleteChildren = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const result = await ChildrenService.softDeleteChildren(id);
+
+		await LogService.createLog(
+			"delete",
+			"delete children",
+			`delete children ${result.children.nama}`,
+			LogType.SUCCESS,
+			req.body.currentUsername
+		);
+
+		res.status(200).json({
+			success: true,
+			message: result.message,
+			data: {
+				children: result.children,
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"delete",
+				"delete children",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
+export {
+	getChildren,
+	getChildrenById,
+	createChildren,
+	updateChildren,
+	softDeleteChildren,
+};

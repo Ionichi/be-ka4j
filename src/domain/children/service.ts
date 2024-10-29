@@ -103,6 +103,20 @@ class ChildrenService {
 			throw error;
 		}
 	};
+
+	static softDeleteChildren = async (id: string) => {
+		try {
+			const children = await ChildrenDao.softDeleteChildren(id);
+
+			return {
+				message: "Children deleted successfully!",
+				children,
+			};
+		} catch (error) {
+			console.error("Error soft delete children: ", error);
+			throw error;
+		}
+	};
 }
 
 export default ChildrenService;

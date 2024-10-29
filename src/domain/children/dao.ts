@@ -100,6 +100,23 @@ class ChildrenDao {
 			await prisma.$disconnect();
 		}
 	};
+
+	static softDeleteChildren = async (id: string) => {
+		try {
+			const children: ChildrenDTO = await prisma.children.update({
+				where: {
+					id,
+				},
+				data: {
+					isActive: false,
+				},
+			});
+
+			return children;
+		} catch (error) {
+			throw error;
+		}
+	};
 }
 
 export default ChildrenDao;

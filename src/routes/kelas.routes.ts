@@ -6,9 +6,11 @@ import {
 	getKelasById,
 	updateKelas,
 } from "domain/kelas/controller";
-import isAdmin from "middleware/admin.middleware";
-import isAuthenticated from "middleware/auth.middleware";
-import validateKelas from "middleware/kelas.middleware";
+import {
+	isAdmin,
+	isAuthenticated,
+	validateKelas,
+} from "middleware/index.middleware";
 
 const kelasRouter: Router = express.Router();
 

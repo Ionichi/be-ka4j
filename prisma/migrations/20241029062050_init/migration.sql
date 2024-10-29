@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "LogType" AS ENUM ('SUCCESS', 'ERROR');
 
+-- CreateEnum
+CREATE TYPE "Gender" AS ENUM ('BOY', 'GIRL');
+
 -- CreateTable
 CREATE TABLE "kelas" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
@@ -42,6 +45,7 @@ CREATE TABLE "absensi_mentor" (
 CREATE TABLE "children" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "nama" TEXT NOT NULL,
+    "gender" "Gender" NOT NULL DEFAULT 'BOY',
     "tglLahir" DATE,
     "namaParent" TEXT,
     "kontak" TEXT,

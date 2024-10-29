@@ -31,13 +31,50 @@ const getChildren = async (req: Request, res: Response) => {
 	}
 };
 
+const getChildrenById = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const result = await ChildrenService.getChildrenById(id);
+
+		res.status(200).json({
+			success: true,
+			message: result.message,
+			data: {
+				children: result.children,
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"edit",
+				"edit children",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
 const createChildren = async (req: Request, res: Response) => {
 	try {
-		const { nama, tglLahir, namaParent, kontak, isJemaat, kelasId } =
-			req.body;
+		const {
+			nama,
+			gender,
+			tglLahir,
+			namaParent,
+			kontak,
+			isJemaat,
+			kelasId,
+		} = req.body;
 
 		const result = await ChildrenService.createChildren(
 			nama,
+			gender,
 			tglLahir,
 			namaParent,
 			kontak,
@@ -77,4 +114,4 @@ const createChildren = async (req: Request, res: Response) => {
 	}
 };
 
-export { getChildren, createChildren };
+export { getChildren, getChildrenById, createChildren };

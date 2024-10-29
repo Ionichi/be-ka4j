@@ -2,10 +2,10 @@ import { NextFunction, Request, Response } from "express";
 
 const validateChildren = (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const { nama, kelasId } = req.body;
+		const { nama, gender, kelasId } = req.body;
 
-		if (!nama || !kelasId) {
-			throw new Error("Name & class field are required");
+		if (!nama || !gender || !kelasId) {
+			throw new Error("Name, gender & class field are required");
 		}
 
 		next();

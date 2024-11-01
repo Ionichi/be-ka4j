@@ -115,6 +115,8 @@ class ChildrenDao {
 			return children;
 		} catch (error) {
 			throw error;
+		} finally {
+			await prisma.$disconnect();
 		}
 	};
 }

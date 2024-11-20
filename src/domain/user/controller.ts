@@ -74,4 +74,40 @@ const logout = (req: Request, res: Response) => {
 	});
 };
 
-export { login, register, logout };
+const getUser = async (req: Request, res: Response) => {
+	try {
+		const { currentUsername } = req.body;
+		const user = await UserService.getUserByUsername(currentUsername);
+
+		if (!user) {
+			throw new Error("Unuthorized user!");
+		}
+
+		res.status(200).json({
+			success: true,
+			message: "-",
+			data: {
+				user: {
+					...user,
+					password: undefined,
+				},
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"get",
+				"get user",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
+export { login, register, logout, getUser };

@@ -17,8 +17,8 @@ authRouter.post(
 	validateRegister,
 	register
 );
-authRouter.post("/check-auth", isAuthenticated, getUser);
-authRouter.post("/check-admin", isAuthenticated, isAdmin, getUser);
+authRouter.post("/validate", isAuthenticated, getUser);
+authRouter.post("/validate-admin", isAuthenticated, isAdmin, getUser);
 authRouter.post("/logout", isAuthenticated, logout);
 
 export default authRouter;

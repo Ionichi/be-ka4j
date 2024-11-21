@@ -18,7 +18,6 @@ authRouter.post(
 	register
 );
 authRouter.post("/validate", isAuthenticated, getUser);
-authRouter.post("/validate-admin", isAuthenticated, isAdmin, getUser);
 authRouter.post("/logout", isAuthenticated, logout);
 
 export default authRouter;

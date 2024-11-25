@@ -1,5 +1,6 @@
 import {
 	getUserByUsername,
+	getUsers,
 	login,
 	logout,
 	register,
@@ -24,5 +25,6 @@ authRouter.post(
 );
 authRouter.post("/validate", isAuthenticated, getUserByUsername);
 authRouter.post("/logout", isAuthenticated, logout);
+authRouter.get("/users", isAuthenticated, isAdmin, getUsers);
 
 export default authRouter;

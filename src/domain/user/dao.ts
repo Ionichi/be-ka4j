@@ -61,6 +61,22 @@ class UserDao {
 			await prisma.$disconnect();
 		}
 	};
+
+	static getUsers = async () => {
+		try {
+			const users: UserDTO[] | null = await prisma.user.findMany({
+				where: {
+					isAdmin: false,
+				},
+			});
+
+			return users;
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
 }
 
 export default UserDao;

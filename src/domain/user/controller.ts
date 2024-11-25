@@ -110,4 +110,32 @@ const getUserByUsername = async (req: Request, res: Response) => {
 	}
 };
 
-export { login, register, logout, getUserByUsername };
+const getUsers = async (req: Request, res: Response) => {
+	try {
+		const result = await UserService.getUsers();
+
+		res.status(200).json({
+			success: true,
+			message: result.message,
+			data: {
+				users: result.users,
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"get",
+				"get all user",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
+export { login, register, logout, getUserByUsername, getUsers };

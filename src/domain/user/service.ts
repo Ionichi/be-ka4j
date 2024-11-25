@@ -66,6 +66,23 @@ class UserService {
 			throw error;
 		}
 	};
+
+	static getUsers = async () => {
+		try {
+			const users = await UserDao.getUsers();
+
+			return {
+				message: "Users retrieved successfully.",
+				users: {
+					...users,
+					password: undefined,
+				},
+			};
+		} catch (error) {
+			console.error("Error get users: ", error);
+			throw error;
+		}
+	};
 }
 
 export default UserService;

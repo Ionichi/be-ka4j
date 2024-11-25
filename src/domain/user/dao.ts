@@ -68,6 +68,9 @@ class UserDao {
 				where: {
 					isAdmin: false,
 				},
+				orderBy: {
+					isActive: "desc",
+				},
 			});
 
 			return users;

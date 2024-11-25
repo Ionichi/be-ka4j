@@ -73,10 +73,12 @@ class UserService {
 
 			return {
 				message: "Users retrieved successfully.",
-				users: {
-					...users,
-					password: undefined,
-				},
+				users: users.map((user) => {
+					return {
+						...user,
+						password: undefined,
+					};
+				}),
 			};
 		} catch (error) {
 			console.error("Error get users: ", error);

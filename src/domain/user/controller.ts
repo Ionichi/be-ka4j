@@ -74,7 +74,7 @@ const logout = (req: Request, res: Response) => {
 	});
 };
 
-const getUser = async (req: Request, res: Response) => {
+const getUserByUsername = async (req: Request, res: Response) => {
 	try {
 		const { currentUsername } = req.body;
 		const user = await UserService.getUserByUsername(currentUsername);
@@ -110,4 +110,4 @@ const getUser = async (req: Request, res: Response) => {
 	}
 };
 
-export { login, register, logout, getUser };
+export { login, register, logout, getUserByUsername };

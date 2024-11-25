@@ -1,4 +1,9 @@
-import { getUser, login, logout, register } from "domain/user/controller";
+import {
+	getUserByUsername,
+	login,
+	logout,
+	register,
+} from "domain/user/controller";
 import express, { Router } from "express";
 import {
 	isAdmin,
@@ -17,7 +22,7 @@ authRouter.post(
 	validateRegister,
 	register
 );
-authRouter.post("/validate", isAuthenticated, getUser);
+authRouter.post("/validate", isAuthenticated, getUserByUsername);
 authRouter.post("/logout", isAuthenticated, logout);
 
 export default authRouter;

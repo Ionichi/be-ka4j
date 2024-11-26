@@ -71,6 +71,13 @@ class UserDao {
 				orderBy: {
 					isActive: "desc",
 				},
+				include: {
+					kelas: {
+						select: {
+							nama: true,
+						},
+					},
+				},
 			});
 
 			return users;

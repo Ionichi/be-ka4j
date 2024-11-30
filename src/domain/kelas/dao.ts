@@ -10,9 +10,7 @@ class KelasDao {
 				where: {
 					isActive: true,
 				},
-				orderBy: {
-					isActive: "desc",
-				},
+				orderBy: [{ isActive: "desc" }, { nama: "asc" }],
 			});
 
 			return kelas;

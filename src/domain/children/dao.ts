@@ -26,6 +26,7 @@ class ChildrenDao {
 				await prisma.children.findUnique({
 					where: {
 						id,
+						isActive: true,
 					},
 				});
 
@@ -81,6 +82,7 @@ class ChildrenDao {
 			const children: ChildrenDTO = await prisma.children.update({
 				where: {
 					id,
+					isActive: true,
 				},
 				data: {
 					nama,
@@ -106,6 +108,7 @@ class ChildrenDao {
 			const children: ChildrenDTO = await prisma.children.update({
 				where: {
 					id,
+					isActive: true,
 				},
 				data: {
 					isActive: false,

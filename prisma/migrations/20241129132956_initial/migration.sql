@@ -8,6 +8,7 @@ CREATE TYPE "Gender" AS ENUM ('BOY', 'GIRL');
 CREATE TABLE "kelas" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "nama" TEXT NOT NULL,
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

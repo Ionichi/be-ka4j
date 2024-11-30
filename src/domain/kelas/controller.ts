@@ -135,10 +135,10 @@ const updateKelas = async (req: Request, res: Response) => {
 	}
 };
 
-const deleteKelas = async (req: Request, res: Response) => {
+const softDeleteKelas = async (req: Request, res: Response) => {
 	try {
 		const { id } = req.params;
-		const result = await KelasService.deleteKelas(id);
+		const result = await KelasService.softDeleteKelas(id);
 
 		await LogService.createLog(
 			"delete",
@@ -172,4 +172,4 @@ const deleteKelas = async (req: Request, res: Response) => {
 	}
 };
 
-export { getKelas, getKelasById, createKelas, updateKelas, deleteKelas };
+export { getKelas, getKelasById, createKelas, updateKelas, softDeleteKelas };

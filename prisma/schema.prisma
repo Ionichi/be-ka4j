@@ -17,6 +17,7 @@ datasource db {
 model Kelas {
   id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   nama            String
+  isActive        Boolean           @default(true)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   user            User[]

@@ -57,9 +57,9 @@ class KelasService {
 		}
 	};
 
-	static deleteKelas = async (id: string) => {
+	static softDeleteKelas = async (id: string) => {
 		try {
-			const kelas = await KelasDao.deleteKelas(id);
+			const kelas = await KelasDao.softDeleteKelas(id);
 
 			return {
 				message: "Kelas deleted successfully!",

@@ -6,7 +6,14 @@ const prisma = new PrismaClient();
 class KelasDao {
 	static getKelas = async () => {
 		try {
-			const kelas: KelasDTO[] = await prisma.kelas.findMany();
+			const kelas: KelasDTO[] = await prisma.kelas.findMany({
+				where: {
+					isActive: true,
+				},
+				orderBy: {
+					isActive: "desc",
+				},
+			});
 
 			return kelas;
 		} catch (error) {
@@ -21,6 +28,7 @@ class KelasDao {
 			const kelas: KelasDTO | null = await prisma.kelas.findUnique({
 				where: {
 					id,
+					isActive: true,
 				},
 			});
 
@@ -53,6 +61,7 @@ class KelasDao {
 			const kelas: KelasDTO = await prisma.kelas.update({
 				where: {
 					id,
+					isActive: true,
 				},
 				data: {
 					nama,
@@ -67,11 +76,15 @@ class KelasDao {
 		}
 	};
 
-	static deleteKelas = async (id: string) => {
+	static softDeleteKelas = async (id: string) => {
 		try {
-			const kelas = await prisma.kelas.delete({
+			const kelas = await prisma.kelas.update({
 				where: {
 					id,
+					isActive: true,
+				},
+				data: {
+					isActive: false,
 				},
 			});
 

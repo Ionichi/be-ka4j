@@ -113,20 +113,17 @@ const getUserByUsername = async (req: Request, res: Response) => {
 const getUserById = async (req: Request, res: Response) => {
 	try {
 		const { id } = req.params;
-		const user = await UserService.getUserById(id);
+		const result = await UserService.getUserById(id);
 
-		if (!user) {
+		if (!result.user) {
 			throw new Error("Unuthorized user!");
 		}
 
 		res.status(200).json({
 			success: true,
-			message: "-",
+			message: result.message,
 			data: {
-				user: {
-					...user,
-					password: undefined,
-				},
+				user: result.user,
 			},
 		});
 	} catch (error) {

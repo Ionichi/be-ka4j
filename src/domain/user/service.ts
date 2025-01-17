@@ -69,9 +69,15 @@ class UserService {
 
 	static getUserById = async (userId: string) => {
 		try {
-			const result = await UserDao.getUserById(userId);
+			const user = await UserDao.getUserById(userId);
 
-			return result;
+			return {
+				message: "User retrieved successfully.",
+				user: {
+					...user,
+					password: undefined,
+				},
+			};
 		} catch (error) {
 			console.error("Error getting user by id: ", error);
 			throw error;

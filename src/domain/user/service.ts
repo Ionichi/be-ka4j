@@ -102,6 +102,38 @@ class UserService {
 			throw error;
 		}
 	};
+
+	static updateUser = async (
+		id: string,
+		username: string,
+		password: string,
+		tglLahir: Date,
+		kelasId: string
+	) => {
+		try {
+			const formatTglLahir = new Date(tglLahir);
+			const hashedPassword = await bcryptjs.hash(password, 10);
+
+			const user = await UserDao.updateUser(
+				id,
+				username,
+				hashedPassword,
+				formatTglLahir,
+				kelasId
+			);
+
+			return {
+				message: "User updated successfully!",
+				user: {
+					...user,
+					password: undefined,
+				},
+			};
+		} catch (error) {
+			console.error("Error updating user: ", error);
+			throw error;
+		}
+	};
 }
 
 export default UserService;

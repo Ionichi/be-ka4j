@@ -171,4 +171,56 @@ const getUsers = async (req: Request, res: Response) => {
 	}
 };
 
-export { login, register, logout, getUserByUsername, getUserById, getUsers };
+const updateUser = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const { username, password, tglLahir, kelasId } = req.body;
+		const result = await UserService.updateUser(
+			id,
+			username,
+			password,
+			tglLahir,
+			kelasId
+		);
+
+		await LogService.createLog(
+			"update",
+			"update user",
+			`update user ${username}`,
+			LogType.SUCCESS,
+			req.body.currentUsername
+		);
+
+		res.status(200).json({
+			success: true,
+			message: result.message,
+			data: {
+				user: result.user,
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"update",
+				"update user",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
+export {
+	login,
+	register,
+	logout,
+	getUserByUsername,
+	getUserById,
+	getUsers,
+	updateUser,
+};

@@ -9,21 +9,30 @@ const validateRegister = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
+		const { id } = req.params;
 		const { username, password, tglLahir } = req.body;
 
-		if (!username || !password || !tglLahir) {
-			throw new Error("Username, password, birth fields are required");
+		if (!username || !tglLahir) {
+			throw new Error("Username, birth fields are required");
 		}
-		if (password.length < 6) {
+		if (!id && !password) {
+			throw new Error("Password field is required");
+		}
+
+		if (
+			(!id && password.length < 6) ||
+			(id && password && password.length < 6)
+		) {
 			throw new Error("Password must be at least 6 characters long");
 		}
 
 		const user = await prisma.user.findUnique({
 			where: {
 				username,
+				isActive: true,
 			},
 		});
-		if (user) {
+		if (!id && user) {
 			throw new Error("Username is already taken");
 		}
 

@@ -104,6 +104,35 @@ class UserDao {
 			await prisma.$disconnect();
 		}
 	};
+
+	static updateUser = async (
+		id: string,
+		username: string,
+		password: string,
+		tglLahir: Date,
+		kelasId?: string
+	) => {
+		try {
+			const user: UserDTO = await prisma.user.update({
+				where: {
+					id,
+					username,
+					isActive: true,
+				},
+				data: {
+					password,
+					tglLahir,
+					kelasId,
+				},
+			});
+
+			return user;
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
 }
 
 export default UserDao;

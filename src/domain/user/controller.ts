@@ -97,7 +97,43 @@ const getUserByUsername = async (req: Request, res: Response) => {
 		if (error instanceof Error) {
 			await LogService.createLog(
 				"get",
-				"get user",
+				"get current user",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
+const getUserById = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const user = await UserService.getUserById(id);
+
+		if (!user) {
+			throw new Error("Unuthorized user!");
+		}
+
+		res.status(200).json({
+			success: true,
+			message: "-",
+			data: {
+				user: {
+					...user,
+					password: undefined,
+				},
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"get",
+				"get user by id",
 				error.message,
 				LogType.ERROR,
 				req.body.currentUsername
@@ -138,4 +174,4 @@ const getUsers = async (req: Request, res: Response) => {
 	}
 };
 
-export { login, register, logout, getUserByUsername, getUsers };
+export { login, register, logout, getUserByUsername, getUserById, getUsers };

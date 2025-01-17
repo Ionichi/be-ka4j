@@ -62,7 +62,18 @@ class UserService {
 
 			return result;
 		} catch (error) {
-			console.error("Error getting user by username: ", error);
+			console.error("Error getting current user by username: ", error);
+			throw error;
+		}
+	};
+
+	static getUserById = async (userId: string) => {
+		try {
+			const result = await UserDao.getUserById(userId);
+
+			return result;
+		} catch (error) {
+			console.error("Error getting user by id: ", error);
 			throw error;
 		}
 	};

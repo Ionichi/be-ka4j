@@ -62,6 +62,23 @@ class UserDao {
 		}
 	};
 
+	static getUserById = async (id: string) => {
+		try {
+			const user: UserDTO | null = await prisma.user.findUnique({
+				where: {
+					id,
+					isActive: true,
+				},
+			});
+
+			return user;
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
+
 	static getUsers = async () => {
 		try {
 			const users: UserDTO[] | null = await prisma.user.findMany({

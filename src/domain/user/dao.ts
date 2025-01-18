@@ -21,7 +21,7 @@ class UserDao {
 		}
 	};
 
-	static register = async (
+	static createUser = async (
 		username: string,
 		password: string,
 		tglLahir: Date,
@@ -120,7 +120,7 @@ class UserDao {
 					isActive: true,
 				},
 				data: {
-					password,
+					password: password || undefined,
 					tglLahir,
 					kelasId,
 				},

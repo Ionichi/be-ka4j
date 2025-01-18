@@ -26,10 +26,10 @@ const login = async (req: Request, res: Response) => {
 	}
 };
 
-const register = async (req: Request, res: Response) => {
+const createUser = async (req: Request, res: Response) => {
 	try {
 		const { username, password, tglLahir, kelasId } = req.body;
-		const result = await UserService.register(
+		const result = await UserService.createUser(
 			username,
 			password,
 			tglLahir,
@@ -217,7 +217,7 @@ const updateUser = async (req: Request, res: Response) => {
 
 export {
 	login,
-	register,
+	createUser,
 	logout,
 	getUserByUsername,
 	getUserById,

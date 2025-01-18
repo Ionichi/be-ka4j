@@ -26,7 +26,7 @@ class UserService {
 			throw error;
 		}
 	};
-	static register = async (
+	static createUser = async (
 		username: string,
 		password: string,
 		tglLahir: Date,
@@ -36,7 +36,7 @@ class UserService {
 			const formatTglLahir = new Date(tglLahir);
 			const hashedPassword = await bcryptjs.hash(password, 10);
 
-			const user = await UserDao.register(
+			const user = await UserDao.createUser(
 				username,
 				hashedPassword,
 				formatTglLahir,
@@ -112,7 +112,9 @@ class UserService {
 	) => {
 		try {
 			const formatTglLahir = new Date(tglLahir);
-			const hashedPassword = await bcryptjs.hash(password, 10);
+			const hashedPassword = password
+				? await bcryptjs.hash(password, 10)
+				: password;
 
 			const user = await UserDao.updateUser(
 				id,

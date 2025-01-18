@@ -10,6 +10,13 @@ class ChildrenDao {
 				where: {
 					isActive: true,
 				},
+				include: {
+					kelas: {
+						select: {
+							nama: true,
+						},
+					},
+				},
 			});
 
 			return children;

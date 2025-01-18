@@ -5,6 +5,7 @@ import {
 	getUsers,
 	login,
 	logout,
+	softDeleteUser,
 	updateUser,
 } from "domain/user/controller";
 import express, { Router } from "express";
@@ -36,5 +37,6 @@ authRouter.put(
 	validateRegister,
 	updateUser
 );
+authRouter.delete("/users/:id", isAuthenticated, isAdmin, softDeleteUser);
 
 export default authRouter;

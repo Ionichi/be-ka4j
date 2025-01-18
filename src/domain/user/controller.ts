@@ -215,6 +215,43 @@ const updateUser = async (req: Request, res: Response) => {
 	}
 };
 
+const softDeleteUser = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const result = await UserService.softDeleteUser(id);
+
+		await LogService.createLog(
+			"delete",
+			"delete user",
+			`delete user ${result.user.username}`,
+			LogType.SUCCESS,
+			req.body.currentUsername
+		);
+
+		res.status(200).json({
+			success: true,
+			message: result.message,
+			data: {
+				user: result.user,
+			},
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			await LogService.createLog(
+				"delete",
+				"delete user",
+				error.message,
+				LogType.ERROR,
+				req.body.currentUsername
+			);
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		}
+	}
+};
+
 export {
 	login,
 	createUser,
@@ -223,4 +260,5 @@ export {
 	getUserById,
 	getUsers,
 	updateUser,
+	softDeleteUser,
 };

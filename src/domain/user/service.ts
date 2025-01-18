@@ -136,6 +136,20 @@ class UserService {
 			throw error;
 		}
 	};
+
+	static softDeleteUser = async (id: string) => {
+		try {
+			const user = await UserDao.softDeleteUser(id);
+
+			return {
+				message: "User deleted successfully!",
+				user,
+			};
+		} catch (error) {
+			console.error("Error deleting user: ", error);
+			throw error;
+		}
+	};
 }
 
 export default UserService;

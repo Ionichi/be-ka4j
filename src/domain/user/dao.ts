@@ -133,6 +133,35 @@ class UserDao {
 			await prisma.$disconnect();
 		}
 	};
+
+	static softDeleteUser = async (id: string) => {
+		try {
+			const user: UserDTO | null = await prisma.user.findUnique({
+				where: {
+					id,
+				},
+			});
+
+			if (!user) {
+				throw new Error("User not found");
+			}
+
+			const updateUser: UserDTO = await prisma.user.update({
+				where: {
+					id,
+				},
+				data: {
+					isActive: !user.isActive,
+				},
+			});
+
+			return updateUser;
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
 }
 
 export default UserDao;

@@ -12,7 +12,7 @@ const validateAbsensiMentor = (
 		const checkFormatData: SimpleAbsensiMentorDTO[] = data;
 
 		if (!tgl || !checkFormatData.length) {
-			throw new Error("Date & class field are required");
+			throw new Error("Date & attendance data are required");
 		}
 
 		next();

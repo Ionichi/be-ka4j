@@ -19,7 +19,7 @@ const getAbsensiMentor = async (req: Request, res: Response) => {
 		if (error instanceof Error) {
 			await LogService.createLog(
 				"get",
-				"get absensi mentor",
+				"get mentor attendance",
 				error.message,
 				LogType.ERROR,
 				req.body.currentUsername
@@ -40,8 +40,8 @@ const storeAbsensiMentor = async (req: Request, res: Response) => {
 
 		await LogService.createLog(
 			"save",
-			"save absensi mentor",
-			`save absensi mentor ${tgl}`,
+			"save mentor attendance",
+			`save mentor attendance ${tgl}`,
 			LogType.SUCCESS,
 			req.body.currentUsername
 		);
@@ -57,7 +57,7 @@ const storeAbsensiMentor = async (req: Request, res: Response) => {
 		if (error instanceof Error) {
 			await LogService.createLog(
 				"save",
-				`save absensi mentor ${req.body.tgl}`,
+				`save mentor attendance ${req.body.tgl}`,
 				error.message,
 				LogType.ERROR,
 				req.body.currentUsername

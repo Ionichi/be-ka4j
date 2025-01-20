@@ -38,13 +38,13 @@ const storeAbsensiMentor = async (req: Request, res: Response) => {
 
 		const result = await AbsensiMentorService.storeAbsensiMentor(tgl, data);
 
-		// await LogService.createLog(
-		// 	"save",
-		// 	"save absensi mentor",
-		// 	`save absensi mentor ${tgl}`,
-		// 	LogType.SUCCESS,
-		// 	req.body.currentUsername
-		// );
+		await LogService.createLog(
+			"save",
+			"save absensi mentor",
+			`save absensi mentor ${tgl}`,
+			LogType.SUCCESS,
+			req.body.currentUsername
+		);
 
 		res.status(201).json({
 			success: true,

@@ -4,7 +4,8 @@ import { SimpleAbsensiMentorDTO } from "./dto";
 class AbsensiMentorService {
 	static getAbsensiMentor = async (tgl: string) => {
 		try {
-			const formatTgl = new Date(tgl);
+			const defaultDate = new Date();
+			const formatTgl = new Date(tgl || defaultDate);
 			const absensiMentor =
 				await AbsensiMentorDao.getAbsensiMentor(formatTgl);
 

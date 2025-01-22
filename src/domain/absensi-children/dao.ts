@@ -8,12 +8,13 @@ import {
 const prisma = new PrismaClient();
 
 class AbsensiChildrenDao {
-	static getAbsensiChildren = async (tgl: Date) => {
+	static getAbsensiChildren = async (tgl: Date, kelasId?: string) => {
 		try {
 			const absensiChildren: DataAbsensiChildrenDTO[] =
 				await prisma.absensiChildren.findMany({
 					where: {
 						tgl,
+						kelasId,
 					},
 					include: {
 						kelas: {

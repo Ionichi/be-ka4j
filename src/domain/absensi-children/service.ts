@@ -3,12 +3,14 @@ import AbsensiChildrenDao from "./dao";
 import { SimpleAbsensiChildrenDTO } from "./dto";
 
 class AbsensiChildrenService {
-	static getAbsensiChildren = async (tgl: string) => {
+	static getAbsensiChildren = async (tgl: string, kelasId?: string) => {
 		try {
 			const defaultDate = new Date();
 			const formatTgl = new Date(tgl || defaultDate);
-			const absensiChildren =
-				await AbsensiChildrenDao.getAbsensiChildren(formatTgl);
+			const absensiChildren = await AbsensiChildrenDao.getAbsensiChildren(
+				formatTgl,
+				kelasId
+			);
 
 			return {
 				message: "Children's attendance retrieved successfully.",

@@ -6,7 +6,11 @@ import AbsensiChildrenService from "./service";
 const getAbsensiChildren = async (req: Request, res: Response) => {
 	try {
 		const tgl = req.query.tgl as string;
-		const result = await AbsensiChildrenService.getAbsensiChildren(tgl);
+		const kelasId = req.query.kelasId as string;
+		const result = await AbsensiChildrenService.getAbsensiChildren(
+			tgl,
+			kelasId
+		);
 
 		res.status(200).json({
 			success: true,

@@ -14,7 +14,7 @@ import {
 
 const kelasRouter: Router = express.Router();
 
-kelasRouter.get("/", isAuthenticated, isAdmin, getKelas);
+kelasRouter.get("/", isAuthenticated, getKelas);
 kelasRouter.post("/", isAuthenticated, isAdmin, validateKelas, createKelas);
 kelasRouter.get("/:id", isAuthenticated, isAdmin, getKelasById);
 kelasRouter.put("/:id", isAuthenticated, isAdmin, validateKelas, updateKelas);

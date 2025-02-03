@@ -1,7 +1,7 @@
-import { SimpleAbsensiMentorDTO } from "domain/absensi-mentor/dto";
+import { SimpleAbsensiChildrenDTO } from "domain/absensi-children/dto";
 import { NextFunction, Request, Response } from "express";
 
-const validateAbsensiMentor = (
+const validateAbsensiChildren = (
 	req: Request,
 	res: Response,
 	next: NextFunction
@@ -9,7 +9,7 @@ const validateAbsensiMentor = (
 	try {
 		const { tgl, data } = req.body;
 
-		const checkFormatData: SimpleAbsensiMentorDTO[] = data;
+		const checkFormatData: SimpleAbsensiChildrenDTO[] = data;
 
 		if (!tgl || !checkFormatData.length) {
 			throw new Error("Date & attendance data are required");
@@ -26,4 +26,4 @@ const validateAbsensiMentor = (
 	}
 };
 
-export default validateAbsensiMentor;
+export default validateAbsensiChildren;

@@ -1,25 +1,29 @@
 import { LogType } from "@prisma/client";
 import LogService from "domain/log/service";
 import { Request, Response } from "express";
-import AbsensiMentorService from "./service";
+import AbsensiChildrenService from "./service";
 
-const getAbsensiMentor = async (req: Request, res: Response) => {
+const getAbsensiChildren = async (req: Request, res: Response) => {
 	try {
 		const tgl = req.query.tgl as string;
-		const result = await AbsensiMentorService.getAbsensiMentor(tgl);
+		const kelasId = req.query.kelasId as string;
+		const result = await AbsensiChildrenService.getAbsensiChildren(
+			tgl,
+			kelasId
+		);
 
 		res.status(200).json({
 			success: true,
 			message: result.message,
 			data: {
-				absensiMentor: result.absensiMentor,
+				absensiChildren: result.absensiChildren,
 			},
 		});
 	} catch (error) {
 		if (error instanceof Error) {
 			await LogService.createLog(
 				"get",
-				"get mentor attendance",
+				"get children's attendance",
 				error.message,
 				LogType.ERROR,
 				req.body.currentUsername
@@ -32,16 +36,20 @@ const getAbsensiMentor = async (req: Request, res: Response) => {
 	}
 };
 
-const storeAbsensiMentor = async (req: Request, res: Response) => {
+const storeAbsensiChildren = async (req: Request, res: Response) => {
 	try {
-		const { tgl, data } = req.body;
+		const { tgl, data, currentUsername } = req.body;
 
-		const result = await AbsensiMentorService.storeAbsensiMentor(tgl, data);
+		const result = await AbsensiChildrenService.storeAbsensiChildren(
+			tgl,
+			currentUsername,
+			data
+		);
 
 		await LogService.createLog(
 			"save",
-			"save mentor attendance",
-			`save mentor attendance ${tgl}`,
+			"save children's attendance",
+			`save children's attendance ${tgl}`,
 			LogType.SUCCESS,
 			req.body.currentUsername
 		);
@@ -50,14 +58,14 @@ const storeAbsensiMentor = async (req: Request, res: Response) => {
 			success: true,
 			message: result.message,
 			data: {
-				absensiMentor: result.absensiMentor,
+				absensiChildren: result.absensiChildren,
 			},
 		});
 	} catch (error) {
 		if (error instanceof Error) {
 			await LogService.createLog(
 				"save",
-				`save mentor attendance ${req.body.tgl}`,
+				`save children's attendance ${req.body.tgl}`,
 				error.message,
 				LogType.ERROR,
 				req.body.currentUsername
@@ -70,4 +78,4 @@ const storeAbsensiMentor = async (req: Request, res: Response) => {
 	}
 };
 
-export { getAbsensiMentor, storeAbsensiMentor };
+export { getAbsensiChildren, storeAbsensiChildren };

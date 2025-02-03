@@ -4,12 +4,13 @@ import { SimpleAbsensiMentorDTO } from "./dto";
 class AbsensiMentorService {
 	static getAbsensiMentor = async (tgl: string) => {
 		try {
-			const formatTgl = new Date(tgl);
+			const defaultDate = new Date();
+			const formatTgl = new Date(tgl || defaultDate);
 			const absensiMentor =
 				await AbsensiMentorDao.getAbsensiMentor(formatTgl);
 
 			return {
-				message: "Absensi mentor retrieved successfully.",
+				message: "Teacher's attendance retrieved successfully.",
 				absensiMentor: absensiMentor.map((data) => {
 					return {
 						...data,
@@ -21,7 +22,7 @@ class AbsensiMentorService {
 				}),
 			};
 		} catch (error) {
-			console.error("Error get absensi mentor: ", error);
+			console.error("Error get mentor attendance: ", error);
 			throw error;
 		}
 	};
@@ -38,7 +39,7 @@ class AbsensiMentorService {
 				await AbsensiMentorDao.getAbsensiMentor(formatTgl);
 
 			return {
-				message: "Absensi mentor stored successfully.",
+				message: "Teacher's attendance stored successfully.",
 				absensiMentor: absensiMentor.map((dataAbsen) => {
 					return {
 						...dataAbsen,
@@ -50,7 +51,7 @@ class AbsensiMentorService {
 				}),
 			};
 		} catch (error) {
-			console.error("Error store absensi mentors: ", error);
+			console.error("Error store mentor attendance: ", error);
 			throw error;
 		}
 	};

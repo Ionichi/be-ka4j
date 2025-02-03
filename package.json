@@ -10,7 +10,7 @@
 	"license": "MIT",
 	"engines": {
 		"node": ">=20.16.0",
-		"yarn": ">=1.22.22",
+		"yarn": ">=1.22.19",
 		"npm": "please-use-yarn"
 	},
 	"jest": {

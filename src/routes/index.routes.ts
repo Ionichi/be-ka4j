@@ -4,6 +4,7 @@ import kelasRouter from "./kelas.routes";
 import childrenRouter from "./chilldren.routes";
 import absensiMentorRouter from "./absensiMentor.routes";
 import absensiChildrenRouter from "./absensiChildren.routes";
+import dashboardRouter from "./dashboard.routes";
 
 const router: Router = express.Router();
 
@@ -13,20 +14,24 @@ const routes = [
 		route: authRouter,
 	},
 	{
-		path: "/kelas",
-		route: kelasRouter,
-	},
-	{
-		path: "/children",
-		route: childrenRouter,
-	},
-	{
 		path: "/absensi-mentor",
 		route: absensiMentorRouter,
 	},
 	{
 		path: "/absensi-children",
 		route: absensiChildrenRouter,
+	},
+	{
+		path: "/children",
+		route: childrenRouter,
+	},
+	{
+		path: "/dashboard",
+		route: dashboardRouter,
+	},
+	{
+		path: "/kelas",
+		route: kelasRouter,
 	},
 ];
 

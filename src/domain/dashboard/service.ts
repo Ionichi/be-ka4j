@@ -4,28 +4,28 @@ import DashboardDao from "./dao";
 class DashboardService {
 	static getDataDashboard = async () => {
 		try {
-			const childrenTotal = await DashboardDao.countChildren();
-			const boyChildCount = await DashboardDao.countChildrenByGender(
+			const totalChildren = await DashboardDao.countChildren();
+			const totalBoyChildren = await DashboardDao.countChildrenByGender(
 				Gender.BOY
 			);
-			const girlChildCount = await DashboardDao.countChildrenByGender(
+			const totalGirlChildren = await DashboardDao.countChildrenByGender(
 				Gender.GIRL
 			);
-			const classTotal = await DashboardDao.countClass();
-			const absensiChildren = await DashboardDao.countTotalCoupon();
+			const totalClass = await DashboardDao.countClass();
+			const totalCoupon = await DashboardDao.countTotalCoupon();
 
 			return {
-				message: "Children retrieved successfully.",
+				message: "Data dashboard retrieved successfully.",
 				dataCount: {
-					classTotal,
-					childrenTotal,
-					boyChildCount,
-					girlChildCount,
-					absensiChildren,
+					totalClass,
+					totalChildren,
+					totalBoyChildren,
+					totalGirlChildren,
+					totalCoupon,
 				},
 			};
 		} catch (error) {
-			console.error("Error get children: ", error);
+			console.error("Error get data dashboard: ", error);
 			throw error;
 		}
 	};

@@ -2,7 +2,7 @@ import { Gender } from "@prisma/client";
 import DashboardDao from "./dao";
 
 class DashboardService {
-	static getChildrenCount = async () => {
+	static getDataDashboard = async () => {
 		try {
 			const childrenTotal = await DashboardDao.countChildren();
 			const boyChildCount = await DashboardDao.countChildrenByGender(
@@ -11,12 +11,18 @@ class DashboardService {
 			const girlChildCount = await DashboardDao.countChildrenByGender(
 				Gender.GIRL
 			);
-
-			console.log({ childrenTotal, boyChildCount, girlChildCount });
+			const classTotal = await DashboardDao.countClass();
+			const absensiChildren = await DashboardDao.countTotalCoupon();
 
 			return {
 				message: "Children retrieved successfully.",
-				// children,
+				dataCount: {
+					classTotal,
+					childrenTotal,
+					boyChildCount,
+					girlChildCount,
+					absensiChildren,
+				},
 			};
 		} catch (error) {
 			console.error("Error get children: ", error);

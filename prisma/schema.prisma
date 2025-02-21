@@ -41,7 +41,7 @@ model User {
   AbsensiMentor   AbsensiMentor[]
   AbsensiChildren AbsensiChildren[]
   Log             Log[]
-  Periode         Periode[]
+  Season          Season[]
 
   @@map("users")
 }
@@ -110,7 +110,7 @@ model Log {
   @@map("logs")
 }
 
-model Periode {
+model Season {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   tgl       DateTime @db.Date
   user      User     @relation(fields: [userId], references: [id])
@@ -118,7 +118,7 @@ model Periode {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("periode")
+  @@map("season")
 }
 
 enum LogType {

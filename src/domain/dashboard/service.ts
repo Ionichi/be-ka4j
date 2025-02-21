@@ -1,4 +1,5 @@
 import { Gender } from "@prisma/client";
+import SeasonService from "domain/settings/service";
 import DashboardDao from "./dao";
 
 class DashboardService {
@@ -12,7 +13,12 @@ class DashboardService {
 				Gender.GIRL
 			);
 			const totalClass = await DashboardDao.countClass();
-			const totalCoupon = await DashboardDao.countTotalCoupon();
+
+			const latestSeason = await SeasonService.getLatestSeason();
+			const totalCoupon = await DashboardDao.countTotalCoupon(
+				latestSeason.season?.tgl ||
+					new Date(new Date().getFullYear(), 0, 1)
+			);
 
 			return {
 				message: "Data dashboard retrieved successfully.",

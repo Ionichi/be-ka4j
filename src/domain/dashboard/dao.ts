@@ -53,13 +53,13 @@ class DashboardDao {
 		}
 	};
 
-	static countTotalCoupon = async () => {
+	static countTotalCoupon = async (latestSeason: Date) => {
 		try {
 			const absensiChildren: AbsensiChildrenDTO[] =
 				await prisma.absensiChildren.findMany({
 					where: {
 						tgl: {
-							gt: new Date("2024-01-01"),
+							gt: latestSeason,
 						},
 					},
 				});

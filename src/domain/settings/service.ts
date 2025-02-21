@@ -22,7 +22,7 @@ class SeasonService {
 
 			return {
 				message: "Latest season retrieved successfully.",
-				season: season || "-",
+				season,
 			};
 		} catch (error) {
 			console.error("Error get latest season: ", error);

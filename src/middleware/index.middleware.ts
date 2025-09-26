@@ -5,6 +5,7 @@ import validateLogin from "./login.middleware";
 import validateKelas from "./kelas.middleware";
 import validateChildren from "./children.middleware";
 import validateAbsensiMentor from "./absensiMentor.middleware";
+import validateSeason from "./season.middleware";
 
 export {
 	isAuthenticated,
@@ -14,4 +15,5 @@ export {
 	validateKelas,
 	validateChildren,
 	validateAbsensiMentor,
+	validateSeason,
 };

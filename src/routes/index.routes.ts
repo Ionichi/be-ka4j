@@ -5,6 +5,7 @@ import childrenRouter from "./chilldren.routes";
 import absensiMentorRouter from "./absensiMentor.routes";
 import absensiChildrenRouter from "./absensiChildren.routes";
 import dashboardRouter from "./dashboard.routes";
+import settingsRouter from "./settings.routes";
 
 const router: Router = express.Router();
 
@@ -32,6 +33,10 @@ const routes = [
 	{
 		path: "/kelas",
 		route: kelasRouter,
+	},
+	{
+		path: "/settings",
+		route: settingsRouter,
 	},
 ];
 

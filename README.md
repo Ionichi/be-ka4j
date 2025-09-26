@@ -39,7 +39,7 @@ KA4J is a Sunday School where every child is guided to grow and develop spiritua
 ## 🗂️ Project Structure
 
 ```
-📁 NAMA_PROYEK_ANDA/
+📁 be-ka4j/
 │
 ├── 📁 prisma/
 │   ├── 📁 migrations/📄...

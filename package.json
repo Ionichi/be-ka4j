@@ -9,9 +9,7 @@
 	},
 	"license": "MIT",
 	"engines": {
-		"node": ">=20.16.0",
-		"yarn": ">=1.22.19",
-		"npm": "please-use-yarn"
+		"node": ">=20.16.0"
 	},
 	"jest": {
 		"testEnvironment": "node"
@@ -76,5 +74,6 @@
 		],
 		"exec": "node -r tsconfig-paths/register -r ts-node/register src/index.ts",
 		"ext": "ts, js"
-	}
+	},
+	"packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
 }

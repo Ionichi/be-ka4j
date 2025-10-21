@@ -24,7 +24,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
 
-		"noEmit": true,
+		"noEmit": false, // true when using esbuild for bundler
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"resolveJsonModule": true,

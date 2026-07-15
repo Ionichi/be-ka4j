@@ -55,6 +55,7 @@ model AbsensiMentor {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([userId, tgl])
   @@map("absensi_mentor")
 }
 

@@ -1,9 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import {
-	AbsensiChildrenDTO,
-	DataAbsensiChildrenDTO,
-	SimpleAbsensiChildrenDTO,
-} from "./dto";
+import { DataAbsensiChildrenDTO, SimpleAbsensiChildrenDTO } from "./dto";
 
 const prisma = new PrismaClient();
 
@@ -56,43 +52,34 @@ class AbsensiChildrenDao {
 		data: SimpleAbsensiChildrenDTO[]
 	) => {
 		try {
-			await prisma.$transaction(async () => {
-				data.forEach(async (children) => {
-					const absensiChildren: AbsensiChildrenDTO | null =
-						await prisma.absensiChildren.findFirst({
-							where: {
-								tgl,
-								childrenId: children.childrenId,
-							},
-						});
-					if (absensiChildren) {
-						await prisma.absensiChildren.update({
-							where: {
-								id: absensiChildren.id,
-							},
-							data: {
-								isPresent: children.isPresent,
-								isDevotion: children.isDevotion,
-								extras: children.extras,
-								notes: children.notes,
-							},
-						});
-					} else {
-						await prisma.absensiChildren.create({
-							data: {
-								childrenId: children.childrenId,
-								kelasId: children.kelasId,
-								tgl,
-								isPresent: children.isPresent,
-								isDevotion: children.isDevotion,
-								extras: children.extras,
-								notes: children.notes,
-								userId,
-							},
-						});
-					}
+			const queries = data.map((children) => {
+				return prisma.absensiChildren.upsert({
+					where: {
+						childrenId_tgl: {
+							childrenId: children.childrenId,
+							tgl,
+						},
+					},
+					update: {
+						isPresent: children.isPresent,
+						isDevotion: children.isDevotion,
+						extras: children.extras,
+						notes: children.notes,
+					},
+					create: {
+						childrenId: children.childrenId,
+						kelasId: children.kelasId,
+						tgl,
+						isPresent: children.isPresent,
+						isDevotion: children.isDevotion,
+						extras: children.extras,
+						notes: children.notes,
+						userId,
+					},
 				});
 			});
+
+			await prisma.$transaction(queries);
 		} catch (error) {
 			throw error;
 		} finally {

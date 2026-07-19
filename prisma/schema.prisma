@@ -55,6 +55,7 @@ model AbsensiMentor {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([userId, tgl])
   @@map("absensi_mentor")
 }
 
@@ -92,6 +93,7 @@ model AbsensiChildren {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  @@unique([childrenId, tgl])
   @@map("absensi_children")
 }
 

@@ -1,9 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import {
-	AbsensiMentorDTO,
-	DataAbsensiMentorDTO,
-	SimpleAbsensiMentorDTO,
-} from "./dto";
+import { DataAbsensiMentorDTO, SimpleAbsensiMentorDTO } from "./dto";
 
 const prisma = new PrismaClient();
 
@@ -40,35 +36,26 @@ class AbsensiMentorDao {
 		data: SimpleAbsensiMentorDTO[]
 	) => {
 		try {
-			await prisma.$transaction(async () => {
-				data.forEach(async (user) => {
-					const absensiMentor: AbsensiMentorDTO | null =
-						await prisma.absensiMentor.findFirst({
-							where: {
-								tgl,
-								userId: user.id,
-							},
-						});
-					if (absensiMentor) {
-						await prisma.absensiMentor.update({
-							where: {
-								id: absensiMentor.id,
-							},
-							data: {
-								isPresent: user.isPresent,
-							},
-						});
-					} else {
-						await prisma.absensiMentor.create({
-							data: {
-								userId: user.id,
-								isPresent: user.isPresent,
-								tgl,
-							},
-						});
-					}
+			const queries = data.map((user) => {
+				return prisma.absensiMentor.upsert({
+					where: {
+						userId_tgl: {
+							userId: user.id,
+							tgl,
+						},
+					},
+					update: {
+						isPresent: user.isPresent,
+					},
+					create: {
+						userId: user.id,
+						tgl,
+						isPresent: user.isPresent,
+					},
 				});
 			});
+
+			await prisma.$transaction(queries);
 		} catch (error) {
 			throw error;
 		} finally {

@@ -9,20 +9,17 @@ const validateRegister = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		const { id } = req.params;
 		const { username, password, tglLahir } = req.body;
 
 		if (!username || !tglLahir) {
 			throw new Error("Username, birth fields are required");
 		}
-		if (!id && !password) {
+		if (!password) {
 			throw new Error("Password field is required");
 		}
 
-		if (
-			(!id && password.length < 6) ||
-			(id && password && password.length < 6)
-		) {
+		if (password.length < 6) {
+			console.log(password);
 			throw new Error("Password must be at least 6 characters long");
 		}
 
@@ -32,7 +29,7 @@ const validateRegister = async (
 				isActive: true,
 			},
 		});
-		if (!id && user) {
+		if (user) {
 			throw new Error("Username is already taken");
 		}
 

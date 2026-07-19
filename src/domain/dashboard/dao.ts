@@ -80,6 +80,91 @@ class DashboardDao {
 			await prisma.$disconnect();
 		}
 	};
+
+	static countChildrenByClass = async () => {
+		try {
+			const totalChildrenByClass = await prisma.kelas.findMany({
+				where: {
+					isActive: true,
+				},
+				select: {
+					id: true,
+					nama: true,
+					_count: {
+						select: {
+							Children: {
+								where: {
+									isActive: true,
+								},
+							},
+						},
+					},
+				},
+			});
+
+			return totalChildrenByClass;
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
+
+	static countCouponByClass = async (latestSeason: Date) => {
+		try {
+			const kelas = await prisma.kelas.findMany({
+				where: {
+					isActive: true,
+				},
+				select: {
+					id: true,
+					nama: true,
+					Children: {
+						where: {
+							isActive: true,
+						},
+						select: {
+							id: true,
+							AbsensiChildren: {
+								where: {
+									tgl: {
+										gt: latestSeason,
+									},
+								},
+								select: {
+									isPresent: true,
+									isDevotion: true,
+									extras: true,
+								},
+							},
+						},
+					},
+				},
+			});
+
+			return kelas.map((data) => ({
+				id: data.id,
+				nama: data.nama,
+				totalCoupon: data.Children.reduce((total, child) => {
+					return (
+						total +
+						child.AbsensiChildren.reduce((subtotal, absensi) => {
+							return (
+								subtotal +
+								(absensi.isPresent ? 1 : 0) +
+								(absensi.isDevotion ? 1 : 0) +
+								absensi.extras
+							);
+						}, 0)
+					);
+				}, 0),
+			}));
+		} catch (error) {
+			throw error;
+		} finally {
+			await prisma.$disconnect();
+		}
+	};
 }
 
 export default DashboardDao;

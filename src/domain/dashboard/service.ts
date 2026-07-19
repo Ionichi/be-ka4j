@@ -19,6 +19,13 @@ class DashboardService {
 				latestSeason.season?.tgl ||
 					new Date(new Date().getFullYear(), 0, 1)
 			);
+			const totalChildrenByClass =
+				await DashboardDao.countChildrenByClass();
+
+			const totalCouponByClass = await DashboardDao.countCouponByClass(
+				latestSeason.season?.tgl ||
+					new Date(new Date().getFullYear(), 0, 1)
+			);
 
 			return {
 				message: "Data dashboard retrieved successfully.",
@@ -28,6 +35,8 @@ class DashboardService {
 					totalBoyChildren,
 					totalGirlChildren,
 					totalCoupon,
+					totalChildrenByClass,
+					totalCouponByClass,
 				},
 			};
 		} catch (error) {

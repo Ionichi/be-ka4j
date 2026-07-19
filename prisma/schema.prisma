@@ -93,6 +93,7 @@ model AbsensiChildren {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  @@unique([childrenId, tgl])
   @@map("absensi_children")
 }
 

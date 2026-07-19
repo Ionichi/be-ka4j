@@ -36,7 +36,6 @@ class AbsensiMentorDao {
 		data: SimpleAbsensiMentorDTO[]
 	) => {
 		try {
-			console.table(data);
 			const queries = data.map((user) => {
 				return prisma.absensiMentor.upsert({
 					where: {
